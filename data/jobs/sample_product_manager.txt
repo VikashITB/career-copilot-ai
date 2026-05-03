@@ -1,0 +1,46 @@
+Job Title: Senior Product Manager – AI / ML Products
+Company: InnovateTech
+Location: Hybrid (New York / Remote)
+Type: Full-Time
+
+ABOUT THE ROLE
+InnovateTech is seeking a Senior Product Manager to lead development of AI-powered product features. You will define strategy, write PRDs, work with engineering and design teams, and deliver products that delight users and drive business growth.
+
+RESPONSIBILITIES
+- Define product vision, strategy, and roadmap for AI/ML-powered features
+- Write detailed product requirements documents (PRDs), user stories, and acceptance criteria
+- Conduct user research, interviews, and usability studies to deeply understand customer needs
+- Collaborate with data scientists, engineers, and designers in agile sprint planning
+- Define and track KPIs, OKRs, and success metrics using analytics tools
+- Manage stakeholder communication and executive reporting
+- Lead A/B experiments and interpret results to drive product decisions
+- Prioritise backlog items using frameworks like RICE, MoSCoW, and Kano
+- Coordinate with marketing and sales for product launches and go-to-market strategy
+- Stay current with AI/ML trends and identify opportunities for product innovation
+
+REQUIRED SKILLS & QUALIFICATIONS
+- 5+ years of product management experience, including 2+ years on AI/ML products
+- Proven track record of shipping successful B2B or B2C products
+- Strong analytical skills: SQL, Amplitude, Mixpanel, or Tableau for data analysis
+- Experience with agile methodologies: Scrum, Kanban
+- Excellent written and verbal communication skills
+- Experience writing PRDs, user stories, and functional specifications
+- Comfort with technical concepts: APIs, ML pipelines, data infrastructure
+- Experience running A/B tests and interpreting statistical results
+- Proficiency with product tools: JIRA, Confluence, Figma, Notion
+- Strong stakeholder management and cross-functional leadership skills
+
+NICE TO HAVE
+- Technical background (Computer Science, Data Science, or Engineering degree)
+- Experience with LLM-based products, chatbots, or recommendation engines
+- MBA or equivalent advanced degree
+- Experience at a high-growth startup or FAANG company
+- Certification in product management (PMPO, Pragmatic Institute)
+
+TECH STACK & TOOLS
+JIRA, Confluence, Figma, Amplitude, Mixpanel, Tableau, SQL, Notion, Slack, Zoom
+
+COMPENSATION
+- Salary: $150,000 – $200,000 USD
+- Annual bonus: 15–20%
+- Equity, health benefits, 401(k), unlimited PTO

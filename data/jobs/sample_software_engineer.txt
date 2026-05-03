@@ -1,0 +1,46 @@
+Job Title: Senior Software Engineer – Backend Systems
+Company: TechCorp Inc.
+Location: Remote / Hybrid (San Francisco, CA)
+Type: Full-Time
+
+ABOUT THE ROLE
+We are looking for a Senior Software Engineer to join our Backend Systems team. You will design and build scalable, high-performance services that power TechCorp's core platform, serving over 5 million users globally.
+
+RESPONSIBILITIES
+- Design, develop, and maintain robust backend microservices using Python and Go
+- Architect RESTful and GraphQL APIs consumed by web and mobile clients
+- Build and optimise data pipelines processing millions of events per day
+- Lead code reviews, mentor junior engineers, and contribute to technical roadmaps
+- Collaborate with product managers, designers, and data scientists
+- Implement CI/CD pipelines and own deployments on AWS (ECS, Lambda, RDS)
+- Write comprehensive unit, integration, and end-to-end tests (pytest, Jest)
+- Monitor system health using Datadog, PagerDuty, and CloudWatch
+- Participate in on-call rotations and incident response
+
+REQUIRED SKILLS & QUALIFICATIONS
+- 5+ years of professional software engineering experience
+- Expert-level Python (FastAPI, Django, Flask) or Go
+- Strong understanding of distributed systems, microservices architecture
+- Experience with relational databases (PostgreSQL, MySQL) and NoSQL (Redis, DynamoDB)
+- Proficiency with Docker, Kubernetes, and container orchestration
+- Hands-on experience with AWS or GCP cloud services
+- Solid understanding of REST API design principles and GraphQL
+- Experience with message queues: Kafka, RabbitMQ, or SQS
+- Strong knowledge of Git, GitHub Actions, and trunk-based development
+- Excellent problem-solving and communication skills
+
+NICE TO HAVE
+- Experience with ML model serving (TorchServe, Triton)
+- Contributions to open-source projects
+- Experience with Terraform / Infrastructure as Code
+- Knowledge of security best practices (OAuth2, JWT, OWASP)
+
+TECH STACK
+Python, Go, FastAPI, PostgreSQL, Redis, Kafka, Docker, Kubernetes, AWS (ECS, RDS, S3, Lambda), Terraform, GitHub Actions, Datadog
+
+COMPENSATION
+- Salary: $160,000 – $220,000 USD
+- Equity: 0.05% – 0.2%
+- Benefits: Health, dental, vision, 401(k) match, $5,000 learning budget
+
+Equal Opportunity Employer. We celebrate diversity and are committed to creating an inclusive environment.
