@@ -1,6 +1,6 @@
 # 🚀 CareerCopilot AI — Resume Builder & Job Matcher
 
-> **An AI-powered career suite** that generates resumes, scores them against ATS systems, matches jobs via FAISS embeddings, improves bullet points, and provides personalised career roadmaps — all inside a beautiful Streamlit dashboard.
+> **An AI-powered career assistant** that generates resumes, scores them against ATS systems, matches jobs via FAISS embeddings, improves bullet points, and provides personalised career roadmaps — all inside a beautiful Streamlit dashboard.
 
 ---
 
@@ -20,7 +20,7 @@
 ## 🛠 Tech Stack
 
 - **Frontend**: Streamlit 1.32+
-- **LLM**: LangChain + Groq (Llama 3 70B) or OpenAI (GPT-4o-mini)
+- **LLM**: LangChain + Groq (Llama 3.1 70B) or OpenAI (GPT-4o-mini)
 - **Vector Search**: FAISS + `sentence-transformers` (all-MiniLM-L6-v2)
 - **Resume Parsing**: PyPDF2, python-docx
 - **Data & Charts**: pandas, numpy, plotly
