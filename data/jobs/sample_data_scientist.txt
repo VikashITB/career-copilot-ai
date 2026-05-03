@@ -1,0 +1,48 @@
+Job Title: Senior Data Scientist – Machine Learning & AI
+Company: DataDriven Analytics
+Location: Remote (US / India)
+Type: Full-Time
+
+ABOUT THE ROLE
+DataDriven Analytics is hiring a Senior Data Scientist to lead ML initiatives across our product suite. You will work on end-to-end machine learning projects — from exploratory data analysis and feature engineering to model deployment and monitoring in production.
+
+RESPONSIBILITIES
+- Design and implement machine learning models for classification, regression, NLP, and recommendation systems
+- Conduct exploratory data analysis (EDA) on large, complex datasets using Python and SQL
+- Build and optimise feature engineering pipelines using pandas, NumPy, and Spark
+- Train, evaluate, and tune models using scikit-learn, XGBoost, LightGBM, PyTorch, and TensorFlow
+- Deploy models to production using MLflow, Docker, and AWS SageMaker
+- Develop A/B testing frameworks and statistical significance tests
+- Collaborate with data engineers to build scalable data pipelines
+- Present findings and model insights to non-technical stakeholders
+- Monitor model drift and maintain model performance in production
+- Contribute to building the internal ML platform and best practices
+
+REQUIRED SKILLS & QUALIFICATIONS
+- 4+ years of experience in data science or machine learning
+- Strong programming skills in Python (pandas, NumPy, scikit-learn, PyTorch, TensorFlow)
+- Deep understanding of ML algorithms: regression, classification, clustering, deep learning, NLP
+- Experience with SQL and big data tools (Spark, Hive, BigQuery)
+- Proficiency in data visualisation: matplotlib, seaborn, Plotly, Tableau
+- Experience with MLOps tools: MLflow, Kubeflow, or SageMaker Pipelines
+- Solid understanding of statistics: hypothesis testing, Bayesian inference, probability
+- Familiarity with Docker and cloud platforms (AWS, GCP, or Azure)
+- Experience with version control (Git) and collaborative development workflows
+- Strong analytical thinking and ability to translate business problems into ML solutions
+
+NICE TO HAVE
+- Experience with LLMs, LangChain, RAG architectures, or fine-tuning transformers
+- Knowledge of real-time ML inference and streaming pipelines
+- Publications or Kaggle competition experience
+- Experience with dbt, Airflow, or similar orchestration tools
+- Familiarity with reinforcement learning or causal inference
+
+TECH STACK
+Python, SQL, PyTorch, TensorFlow, scikit-learn, XGBoost, LightGBM, pandas, NumPy, Spark, MLflow, Docker, AWS SageMaker, BigQuery, Airflow, dbt, Tableau
+
+COMPENSATION
+- Salary: $140,000 – $190,000 USD
+- Equity & Bonus: Competitive
+- Benefits: Comprehensive health coverage, remote work stipend, conference budget
+
+We are an equal opportunity employer committed to building diverse, inclusive teams.

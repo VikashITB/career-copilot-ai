@@ -1,0 +1,46 @@
+Job Title: DevOps / Platform Engineer – Cloud Infrastructure
+Company: CloudScale Systems
+Location: Remote (Global)
+Type: Full-Time
+
+ABOUT THE ROLE
+CloudScale is looking for a DevOps / Platform Engineer to design and operate the infrastructure that powers our SaaS platform. You will own CI/CD pipelines, cloud infrastructure, monitoring, and developer tooling for a team of 80+ engineers.
+
+RESPONSIBILITIES
+- Design, build, and maintain cloud infrastructure on AWS and GCP using Terraform and Pulumi
+- Build and optimise CI/CD pipelines using GitHub Actions, Jenkins, and ArgoCD
+- Manage Kubernetes clusters (EKS, GKE) including autoscaling, networking, and security
+- Implement infrastructure as code (IaC) best practices across all environments
+- Set up and maintain observability stacks: Prometheus, Grafana, ELK, Datadog
+- Automate operational tasks using Python, Bash, and Ansible
+- Manage secrets and identity using Vault, AWS IAM, and OIDC
+- Drive security hardening, compliance (SOC 2, ISO 27001), and cost optimisation
+- Collaborate with development teams to improve developer experience and deployment velocity
+- Participate in 24/7 on-call rotation and lead incident response
+
+REQUIRED SKILLS & QUALIFICATIONS
+- 4+ years in DevOps, SRE, or platform engineering roles
+- Expert knowledge of AWS services (EC2, EKS, RDS, S3, Lambda, VPC, IAM)
+- Strong experience with Kubernetes and container orchestration
+- Proficiency with Terraform, Pulumi, or CloudFormation
+- CI/CD expertise: GitHub Actions, Jenkins, GitLab CI, ArgoCD
+- Strong Linux system administration and shell scripting (Bash)
+- Experience with monitoring and alerting: Prometheus, Grafana, PagerDuty
+- Networking fundamentals: DNS, TLS, load balancing, VPC/VPN
+- Familiarity with security best practices, RBAC, and secrets management
+- Python or Go scripting for automation
+
+NICE TO HAVE
+- Certified Kubernetes Administrator (CKA) or AWS Solutions Architect certification
+- Experience with service meshes (Istio, Linkerd)
+- Database administration: PostgreSQL, MySQL, Redis cluster management
+- FinOps and cloud cost optimisation experience
+- Experience with GitOps workflows
+
+TECH STACK
+AWS, GCP, Kubernetes (EKS/GKE), Terraform, Pulumi, GitHub Actions, ArgoCD, Docker, Prometheus, Grafana, Datadog, Python, Bash, Vault, PostgreSQL
+
+COMPENSATION
+- Salary: $130,000 – $180,000 USD
+- Stock options + performance bonus
+- Fully remote, flexible hours, home office stipend
