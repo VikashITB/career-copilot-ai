@@ -32,7 +32,7 @@
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/yourname/careercoPilot-ai.git
+git clone https://github.com/VikashITB/careercoPilot-ai.git
 cd careercoPilot-ai/resume-analyzer
 ```
 
