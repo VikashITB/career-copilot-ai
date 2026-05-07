@@ -1,4 +1,4 @@
-# 🚀 CareerCopilot AI — Resume Builder & Job Matcher
+# 🚀 Career Copilot AI — AI-Powered Resume & Job Alignment System
 
 > **An AI-powered career assistant** that generates resumes, scores them against ATS systems, matches jobs via FAISS embeddings, improves bullet points, and provides personalised career roadmaps — all inside a beautiful Streamlit dashboard.
 
