@@ -1,18 +1,10 @@
-"""
-ats_scorer.py – ATS (Applicant Tracking System) keyword scorer.
-
-Scores a resume against a job description on a 0–100 scale by:
-  1. Keyword frequency matching
-  2. Section completeness check
-  3. Action verb density
-  4. Overall length / detail check
-"""
+"""ATS keyword scoring for resume-job matching."""
 
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.utils import clean_text, extract_sections
 
-# ── Common ATS keywords by category ───────────────────────────────────────────
+# Common technical action verbs
 TECH_ACTION_VERBS = {
     "developed", "built", "designed", "implemented", "architected",
     "optimised", "automated", "deployed", "integrated", "led",
@@ -23,32 +15,27 @@ TECH_ACTION_VERBS = {
 
 REQUIRED_SECTIONS = {"experience", "education", "skills"}
 
-# ── Data classes ───────────────────────────────────────────────────────────────
 
 @dataclass
 class ATSResult:
-    score: int                          # 0–100
-    matched_keywords: list[str] = field(default_factory=list)
-    missing_keywords: list[str] = field(default_factory=list)
-    section_scores: dict[str, int] = field(default_factory=dict)
-    action_verb_count: int = 0
-    word_count: int = 0
-    feedback: list[str] = field(default_factory=list)
+    """ATS scoring results with detailed feedback."""
+    score: int
+    matched_keywords: list[str]
+    missing_keywords: list[str]
+    section_scores: dict[str, int]
+    action_verb_count: int
+    word_count: int
+    feedback: list[str]
 
-
-# ── Core scoring logic ─────────────────────────────────────────────────────────
 
 def _tokenize(text: str) -> set[str]:
-    """Lowercase, strip punctuation, return unique word set."""
+    """Extract unique words from text, lowercase and cleaned."""
     words = re.findall(r"[a-z][a-z0-9\+\#\.]*", text.lower())
     return set(words)
 
 
 def _extract_keywords(job_text: str, top_n: int = 40) -> list[str]:
-    """
-    Extract the most meaningful keywords from a job description.
-    Filters out common stopwords to focus on technical/role terms.
-    """
+    """Extract meaningful keywords from job description."""
     stopwords = {
         "the", "and", "or", "a", "an", "in", "on", "at", "to", "for",
         "of", "is", "are", "will", "be", "with", "we", "you", "your",
@@ -68,29 +55,19 @@ def _extract_keywords(job_text: str, top_n: int = 40) -> list[str]:
 
 
 def score_resume(resume_text: str, job_description: str) -> ATSResult:
-    """
-    Score *resume_text* against *job_description*.
-
-    Scoring breakdown (total = 100):
-      - Keyword match       : up to 50 pts
-      - Section completeness: up to 20 pts
-      - Action verbs        : up to 15 pts
-      - Resume length/detail: up to 15 pts
-
-    Returns an ATSResult dataclass.
-    """
+    """Score resume against job description (0-100 scale)."""
     resume_clean = clean_text(resume_text).lower()
     jd_clean = clean_text(job_description).lower()
 
     resume_tokens = _tokenize(resume_clean)
     jd_keywords = _extract_keywords(jd_clean, top_n=40)
 
-    # 1. Keyword matching (50 pts) ─────────────────────────────────────────────
+    # Keyword matching (50 pts)
     matched = [kw for kw in jd_keywords if kw in resume_tokens]
     missing = [kw for kw in jd_keywords if kw not in resume_tokens]
     keyword_score = int((len(matched) / max(len(jd_keywords), 1)) * 50)
 
-    # 2. Section completeness (20 pts) ────────────────────────────────────────
+    # Section completeness (20 pts)
     sections_found = extract_sections(resume_text)
     found_lower = {k.lower() for k in sections_found}
     section_hit = sum(
@@ -99,18 +76,17 @@ def score_resume(resume_text: str, job_description: str) -> ATSResult:
     )
     section_score = int((section_hit / len(REQUIRED_SECTIONS)) * 20)
 
-    # Track which required sections were found
     section_scores = {
         s.title(): (10 if any(s in f for f in found_lower) else 0)
         for s in REQUIRED_SECTIONS
     }
 
-    # 3. Action verb density (15 pts) ─────────────────────────────────────────
+    # Action verb density (15 pts)
     resume_words = resume_clean.split()
     verb_count = sum(1 for w in resume_words if w in TECH_ACTION_VERBS)
     action_score = min(15, int((verb_count / max(len(resume_words), 1)) * 1500))
 
-    # 4. Length / detail (15 pts) ─────────────────────────────────────────────
+    # Length score (15 pts)
     wc = len(resume_words)
     if wc >= 400:
         length_score = 15
@@ -124,7 +100,7 @@ def score_resume(resume_text: str, job_description: str) -> ATSResult:
     total_score = keyword_score + section_score + action_score + length_score
     total_score = max(0, min(100, total_score))
 
-    # 5. Feedback messages ────────────────────────────────────────────────────
+    # Generate feedback
     feedback: list[str] = []
     if keyword_score < 25:
         feedback.append("⚠️  Add more keywords from the job description to improve ATS matching.")
@@ -142,7 +118,7 @@ def score_resume(resume_text: str, job_description: str) -> ATSResult:
     return ATSResult(
         score=total_score,
         matched_keywords=matched,
-        missing_keywords=missing[:15],  # show top 15 missing
+        missing_keywords=missing[:15],
         section_scores=section_scores,
         action_verb_count=verb_count,
         word_count=wc,

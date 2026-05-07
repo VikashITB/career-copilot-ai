@@ -1,9 +1,6 @@
-"""
-job_matcher.py – Orchestrates FAISS similarity search + LLM explanation
-                 to produce ranked job match results for a given resume.
-"""
+"""Job matching using FAISS similarity and LLM explanations."""
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from src.embeddings import search_jobs, build_index, index_exists
 from src.rag_chain import job_match_chain
 from src.utils import load_job_files, truncate
@@ -11,17 +8,16 @@ from src.utils import load_job_files, truncate
 
 @dataclass
 class JobMatch:
+    """Job match result with similarity score and explanation."""
     job_name: str
     job_text: str
-    similarity: float        # 0.0 – 1.0
-    match_percent: int       # similarity * 100 rounded
+    similarity: float
+    match_percent: int
     explanation: str = ""
 
 
-# ── Index management ───────────────────────────────────────────────────────────
-
 def ensure_index_built() -> None:
-    """Build the FAISS index from data/jobs/*.txt if not already present."""
+    """Build FAISS index from job files if needed."""
     if index_exists():
         return
     jobs = load_job_files()
@@ -30,26 +26,8 @@ def ensure_index_built() -> None:
     build_index(list(jobs.values()), list(jobs.keys()))
 
 
-# ── Matching ───────────────────────────────────────────────────────────────────
-
 def match_jobs(resume_text: str, top_k: int = 5, explain: bool = True) -> list[JobMatch]:
-    """
-    Match *resume_text* against indexed job descriptions.
-
-    Parameters
-    ----------
-    resume_text : str
-        Full resume text.
-    top_k : int
-        Number of top matches to return.
-    explain : bool
-        If True, call the LLM to generate a fit explanation per match.
-
-    Returns
-    -------
-    list[JobMatch]
-        Ranked list of job matches, best first.
-    """
+    """Find best job matches for resume text."""
     ensure_index_built()
     raw_results = search_jobs(resume_text, top_k=top_k)
 
@@ -87,12 +65,11 @@ def match_jobs(resume_text: str, top_k: int = 5, explain: bool = True) -> list[J
 
 
 def add_custom_job(name: str, description: str) -> None:
-    """
-    Add a single custom job description to the FAISS index at runtime.
-    This rebuilds the index with the new job appended.
-    """
+    """Add custom job to FAISS index."""
+    import pickle
+    import os
+    import faiss
     from src.embeddings import load_index, embed_texts, VECTORSTORE_DIR, INDEX_PATH, META_PATH
-    import pickle, os, faiss
 
     index, meta = load_index()
     if index is None:

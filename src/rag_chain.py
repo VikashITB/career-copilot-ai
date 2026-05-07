@@ -1,9 +1,4 @@
-"""
-rag_chain.py – LangChain LLM chain factory for CareerCopilot AI.
-
-Supports Groq (default) and OpenAI as providers.
-Set LLM_PROVIDER=groq or LLM_PROVIDER=openai in .env
-"""
+"""LangChain LLM chains for CareerCopilot AI."""
 
 import os
 from langchain_core.prompts import ChatPromptTemplate
@@ -11,13 +6,8 @@ from langchain_core.output_parsers import StrOutputParser
 from src.utils import get_env
 
 
-# ── LLM factory ───────────────────────────────────────────────────────────────
-
 def get_llm(temperature: float = 0.3):
-    """
-    Return a cached LangChain chat model instance.
-    Tries Groq first; falls back to OpenAI if GROQ_API_KEY is absent.
-    """
+    """Get configured LLM (Groq or OpenAI)."""
     provider = get_env("LLM_PROVIDER", "groq").lower()
     groq_key = get_env("GROQ_API_KEY")
     openai_key = get_env("OPENAI_API_KEY")
@@ -45,22 +35,8 @@ def get_llm(temperature: float = 0.3):
     )
 
 
-# ── Generic chain builder ──────────────────────────────────────────────────────
-
 def build_chain(system_prompt: str, human_template: str, temperature: float = 0.4):
-    """
-    Build and return a LangChain LCEL chain:
-      prompt | llm | StrOutputParser
-    
-    Parameters
-    ----------
-    system_prompt : str
-        The system-level instruction for the LLM.
-    human_template : str
-        The human message template with {variable} placeholders.
-    temperature : float
-        Sampling temperature (lower = more deterministic).
-    """
+    """Build LangChain LCEL pipeline: prompt | llm | parser."""
     llm = get_llm(temperature=temperature)
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -70,11 +46,8 @@ def build_chain(system_prompt: str, human_template: str, temperature: float = 0.
     )
     return prompt | llm | StrOutputParser()
 
-
-# ── Pre-built chains ───────────────────────────────────────────────────────────
-
 def resume_generator_chain():
-    """Chain for generating a full resume from user inputs."""
+    """Generate ATS-optimized resume from user profile."""
     system = (
         "You are an expert resume writer with 15 years of experience helping "
         "professionals land their dream jobs at top companies. "
@@ -99,7 +72,7 @@ def resume_generator_chain():
 
 
 def ats_analysis_chain():
-    """Chain for ATS analysis narrative."""
+    """Generate ATS analysis narrative."""
     system = (
         "You are a senior recruiter and ATS specialist. "
         "Analyse resumes against job descriptions and provide actionable feedback."
@@ -118,7 +91,7 @@ def ats_analysis_chain():
 
 
 def job_match_chain():
-    """Chain for explaining a job match."""
+    """Explain job-candidate fit analysis."""
     system = (
         "You are a career coach who explains job-candidate fit clearly and constructively. "
         "Be specific, concise, and encouraging."
@@ -135,7 +108,7 @@ def job_match_chain():
 
 
 def bullet_improver_chain():
-    """Chain for improving weak resume bullet points."""
+    """Improve weak resume bullet points."""
     system = (
         "You are an expert resume coach. "
         "Transform weak, vague bullet points into powerful, quantified achievement statements "
@@ -152,7 +125,7 @@ def bullet_improver_chain():
 
 
 def career_advisor_chain():
-    """Chain for generating a career roadmap."""
+    """Generate personalized career roadmap."""
     system = (
         "You are an expert AI career advisor."
     )

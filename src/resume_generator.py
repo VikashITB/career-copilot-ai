@@ -1,9 +1,4 @@
-"""
-resume_generator.py – LLM-powered resume generation.
-
-Takes user profile information and generates a full, ATS-optimised
-plain-text resume via the LangChain chain defined in rag_chain.py.
-"""
+"""Resume generation using LLM."""
 
 from dataclasses import dataclass
 from src.rag_chain import resume_generator_chain
@@ -12,7 +7,7 @@ from src.utils import clean_text
 
 @dataclass
 class ResumeProfile:
-    """Stores the user inputs required to generate a resume."""
+    """User profile data for resume generation."""
     name: str
     role: str
     years_exp: str
@@ -23,12 +18,7 @@ class ResumeProfile:
 
 
 def generate_resume(profile: ResumeProfile) -> str:
-    """
-    Generate a full resume for *profile* using the LLM chain.
-
-    Returns plain text resume content.
-    Raises RuntimeError if the LLM call fails.
-    """
+    """Generate ATS-optimized resume from user profile."""
     chain = resume_generator_chain()
     try:
         result = chain.invoke(
@@ -48,5 +38,5 @@ def generate_resume(profile: ResumeProfile) -> str:
 
 
 def resume_to_download_bytes(resume_text: str) -> bytes:
-    """Convert resume text to UTF-8 bytes for Streamlit download button."""
+    """Convert resume text to bytes for download."""
     return resume_text.encode("utf-8")

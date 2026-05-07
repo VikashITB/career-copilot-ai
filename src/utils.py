@@ -1,18 +1,12 @@
-"""
-utils.py – Shared helper utilities for CareerCopilot AI
-"""
+"""Shared utilities for CareerCopilot AI."""
 
 import os
 import re
-import textwrap
-from typing import Optional
 import streamlit as st
 
 
-# ── Environment helpers ────────────────────────────────────────────────────────
-
 def get_env(key: str, default: str = "") -> str:
-    """Return environment variable, falling back to Streamlit secrets if available."""
+    """Get environment variable with Streamlit secrets fallback."""
     value = os.environ.get(key, "")
     if not value:
         try:
@@ -23,14 +17,12 @@ def get_env(key: str, default: str = "") -> str:
 
 
 def check_api_key() -> bool:
-    """Return True if at least one LLM API key is configured."""
+    """Check if any LLM API key is configured."""
     return bool(get_env("GROQ_API_KEY") or get_env("OPENAI_API_KEY"))
 
 
-# ── Text helpers ───────────────────────────────────────────────────────────────
-
 def clean_text(text: str) -> str:
-    """Remove excessive whitespace and control characters from text."""
+    """Clean text by normalizing whitespace."""
     text = re.sub(r"\r\n|\r", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = re.sub(r"[ \t]+", " ", text)
@@ -38,31 +30,27 @@ def clean_text(text: str) -> str:
 
 
 def truncate(text: str, max_chars: int = 4000) -> str:
-    """Truncate text to *max_chars*, appending ellipsis if needed."""
+    """Truncate text to max characters."""
     if len(text) <= max_chars:
         return text
     return text[:max_chars].rsplit(" ", 1)[0] + "…"
 
 
 def truncate_output(text: str, max_chars: int = 3000) -> str:
-    """Truncate LLM output to prevent UI breakage, preserving structure."""
+    """Truncate LLM output preserving sentence structure."""
     if len(text) <= max_chars:
         return text
     truncated = text[:max_chars]
-    # Try to end at a complete sentence
     last_period = truncated.rfind(".")
     last_newline = truncated.rfind("\n")
     cutoff = max(last_period, last_newline)
-    if cutoff > max_chars * 0.8:  # Only use if we have at least 80% of content
+    if cutoff > max_chars * 0.8:
         return truncated[:cutoff + 1] + "\n\n… (output truncated for display)"
     return truncated + "…"
 
 
 def extract_sections(resume_text: str) -> dict:
-    """
-    Naively extract common resume sections by looking for uppercase headings.
-    Returns a dict of {section_name: content}.
-    """
+    """Extract resume sections by headings."""
     section_patterns = [
         "SUMMARY", "OBJECTIVE", "EXPERIENCE", "WORK EXPERIENCE",
         "EDUCATION", "SKILLS", "PROJECTS", "CERTIFICATIONS",
@@ -82,14 +70,12 @@ def extract_sections(resume_text: str) -> dict:
 
 
 def word_count(text: str) -> int:
-    """Return the word count of *text*."""
+    """Count words in text."""
     return len(text.split())
 
 
-# ── Formatting helpers ─────────────────────────────────────────────────────────
-
 def score_color(score: int) -> str:
-    """Return a hex colour string based on a 0–100 score."""
+    """Get color for score display."""
     if score >= 75:
         return "#16a34a"
     if score >= 50:
@@ -98,7 +84,7 @@ def score_color(score: int) -> str:
 
 
 def score_label(score: int) -> str:
-    """Return a human-readable label for a score."""
+    """Get human-readable score label."""
     if score >= 80:
         return "Excellent ✅"
     if score >= 60:
@@ -109,13 +95,13 @@ def score_label(score: int) -> str:
 
 
 def bullet_list_html(items: list[str]) -> str:
-    """Convert a Python list into an HTML unordered list string."""
+    """Convert list to HTML unordered list."""
     lis = "".join(f"<li>{item}</li>" for item in items)
     return f"<ul style='margin:0;padding-left:1.2rem;'>{lis}</ul>"
 
 
 def wrap_metric_card(title: str, value: str, subtitle: str = "", color: str = "#6366f1") -> str:
-    """Return an HTML metric card."""
+    """Create HTML metric card."""
     return f"""
     <div style='background:white;border-radius:12px;padding:1.1rem 1.4rem;
                 box-shadow:0 1px 3px rgba(0,0,0,.08);border-left:4px solid {color};
@@ -128,19 +114,14 @@ def wrap_metric_card(title: str, value: str, subtitle: str = "", color: str = "#
     """
 
 
-# ── File helpers ───────────────────────────────────────────────────────────────
-
 def jobs_directory() -> str:
-    """Return the absolute path to the data/jobs directory."""
+    """Get path to jobs data directory."""
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base, "data", "jobs")
 
 
 def load_job_files() -> dict[str, str]:
-    """
-    Load all .txt job description files from data/jobs/.
-    Returns {filename_without_ext: content}.
-    """
+    """Load all job description files."""
     directory = jobs_directory()
     jobs: dict[str, str] = {}
     if not os.path.isdir(directory):

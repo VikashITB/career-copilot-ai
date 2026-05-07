@@ -1,17 +1,11 @@
-"""
-resume_parser.py – Extract plain text from uploaded PDF or DOCX resume files.
-"""
+"""Resume text extraction from PDF, DOCX, and TXT files."""
 
 import io
-from typing import Optional
 import streamlit as st
 
 
 def parse_pdf(file_bytes: bytes) -> str:
-    """
-    Extract text from a PDF file given as raw bytes.
-    Uses PyPDF2; falls back gracefully if a page cannot be decoded.
-    """
+    """Extract text from PDF bytes using PyPDF2."""
     try:
         import PyPDF2
     except ImportError:
@@ -29,10 +23,7 @@ def parse_pdf(file_bytes: bytes) -> str:
 
 
 def parse_docx(file_bytes: bytes) -> str:
-    """
-    Extract text from a DOCX file given as raw bytes.
-    Iterates over paragraphs and table cells.
-    """
+    """Extract text from DOCX bytes including tables."""
     try:
         from docx import Document
     except ImportError:
@@ -41,12 +32,10 @@ def parse_docx(file_bytes: bytes) -> str:
     doc = Document(io.BytesIO(file_bytes))
     parts: list[str] = []
 
-    # Paragraphs
     for para in doc.paragraphs:
         if para.text.strip():
             parts.append(para.text)
 
-    # Tables
     for table in doc.tables:
         for row in table.rows:
             for cell in row.cells:
@@ -56,16 +45,8 @@ def parse_docx(file_bytes: bytes) -> str:
     return "\n".join(parts)
 
 
-def parse_resume(uploaded_file) -> Optional[str]:
-    """
-    Parse a Streamlit UploadedFile object (PDF or DOCX).
-    Returns extracted plain text, or None on failure.
-    
-    Parameters
-    ----------
-    uploaded_file : streamlit.runtime.uploaded_file_manager.UploadedFile
-        The file object from st.file_uploader.
-    """
+def parse_resume(uploaded_file) -> str | None:
+    """Parse uploaded resume file and return extracted text."""
     if uploaded_file is None:
         return None
 

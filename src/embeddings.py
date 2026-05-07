@@ -1,25 +1,17 @@
-"""
-embeddings.py – FAISS vector index creation and similarity search.
-
-Uses sentence-transformers (all-MiniLM-L6-v2) to embed text,
-then stores/searches via FAISS (CPU).
-"""
+"""FAISS vector index for semantic job matching."""
 
 import os
 import pickle
 import numpy as np
-from typing import Optional
 from src.utils import get_env, truncate
 
-# Lazy imports to keep startup fast
+# Lazy loading for faster startup
 _embedder = None
 _faiss = None
 
 
-# ── Embedding model ────────────────────────────────────────────────────────────
-
 def _get_embedder():
-    """Lazily load the SentenceTransformer model."""
+    """Lazy load SentenceTransformer model."""
     global _embedder
     if _embedder is None:
         from sentence_transformers import SentenceTransformer
@@ -29,7 +21,7 @@ def _get_embedder():
 
 
 def _get_faiss():
-    """Lazily import faiss."""
+    """Lazy import FAISS."""
     global _faiss
     if _faiss is None:
         import faiss
@@ -38,10 +30,7 @@ def _get_faiss():
 
 
 def embed_text(text: str) -> np.ndarray:
-    """
-    Embed a single text string into a float32 numpy vector.
-    The vector is L2-normalised for cosine similarity via FAISS IndexFlatIP.
-    """
+    """Embed text into normalized vector for cosine similarity."""
     embedder = _get_embedder()
     text = truncate(text, max_chars=2000)
     vector = embedder.encode([text], normalize_embeddings=True)
@@ -49,35 +38,24 @@ def embed_text(text: str) -> np.ndarray:
 
 
 def embed_texts(texts: list[str]) -> np.ndarray:
-    """Embed multiple texts and return a (N, D) float32 array."""
+    """Embed multiple texts efficiently."""
     embedder = _get_embedder()
     texts = [truncate(t, 2000) for t in texts]
     vectors = embedder.encode(texts, normalize_embeddings=True, batch_size=32)
     return vectors.astype(np.float32)
 
 
-# ── FAISS index management ─────────────────────────────────────────────────────
-
+# Vector store paths
 VECTORSTORE_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
     "vectorstore",
 )
 INDEX_PATH = os.path.join(VECTORSTORE_DIR, "jobs.index")
-META_PATH  = os.path.join(VECTORSTORE_DIR, "jobs_meta.pkl")
+META_PATH = os.path.join(VECTORSTORE_DIR, "jobs_meta.pkl")
 
 
 def build_index(job_texts: list[str], job_names: list[str]) -> None:
-    """
-    Build a FAISS IndexFlatIP (inner product = cosine for normalised vectors)
-    from *job_texts* and persist it to disk.
-
-    Parameters
-    ----------
-    job_texts : list[str]
-        Raw job description strings.
-    job_names : list[str]
-        Corresponding job title / identifier strings.
-    """
+    """Build and persist FAISS index from job descriptions."""
     faiss = _get_faiss()
     vectors = embed_texts(job_texts)
     dimension = vectors.shape[1]
@@ -92,7 +70,7 @@ def build_index(job_texts: list[str], job_names: list[str]) -> None:
 
 
 def load_index():
-    """Load the persisted FAISS index and metadata. Returns (index, meta_dict)."""
+    """Load FAISS index and metadata from disk."""
     faiss = _get_faiss()
     if not os.path.exists(INDEX_PATH):
         return None, None
@@ -103,13 +81,7 @@ def load_index():
 
 
 def search_jobs(resume_text: str, top_k: int = 5) -> list[dict]:
-    """
-    Search the FAISS index for jobs most similar to *resume_text*.
-
-    Returns a list of dicts:
-      [{"name": str, "text": str, "score": float (0–1)}, ...]
-    sorted by descending similarity.
-    """
+    """Find most similar jobs using FAISS vector search."""
     index, meta = load_index()
     if index is None:
         return []
@@ -125,12 +97,12 @@ def search_jobs(resume_text: str, top_k: int = 5) -> list[dict]:
             {
                 "name": meta["names"][idx],
                 "text": meta["texts"][idx],
-                "score": float(dist),   # cosine similarity (0–1 range for normalised)
+                "score": float(dist),
             }
         )
     return results
 
 
 def index_exists() -> bool:
-    """Return True if a built FAISS index is present on disk."""
+    """Check if FAISS index files exist."""
     return os.path.exists(INDEX_PATH) and os.path.exists(META_PATH)
