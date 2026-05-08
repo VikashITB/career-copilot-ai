@@ -14,7 +14,7 @@ def get_llm(temperature: float = 0.3):
 
     if provider == "groq" and groq_key:
         from langchain_groq import ChatGroq
-        model = get_env("GROQ_MODEL", "llama-3.1-70b-versatile")
+        model = get_env("GROQ_MODEL", "llama-3.3-70b-versatile")
         return ChatGroq(
             groq_api_key=groq_key,
             model_name=model,
