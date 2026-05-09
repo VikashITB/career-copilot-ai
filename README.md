@@ -22,9 +22,6 @@
 
 ---
 
-## Screenshots
-
-> Replace these placeholders with actual screenshots before publishing. Suggested captures below.
 
 | View | What to capture |
 |---|---|
@@ -34,7 +31,6 @@
 | `career_roadmap.png` | 6-week learning plan output with skill gap breakdown |
 
 ```html
-<!-- Swap src values once screenshots are committed -->
 <p align="center">
   <img src="docs/screenshots/dashboard.png" width="700" alt="Dashboard overview" />
   <img src="docs/screenshots/ats_detail.png" width="700" alt="ATS keyword gap detail" />
