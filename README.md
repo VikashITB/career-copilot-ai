@@ -32,9 +32,15 @@
 
 ```html
 <p align="center">
-  <img src="docs/screenshots/dashboard.png" width="700" alt="Dashboard overview" />
-  <img src="docs/screenshots/ats_detail.png" width="700" alt="ATS keyword gap detail" />
-  <img src="docs/screenshots/bullet_before_after.png" width="700" alt="Bullet point improvement" />
+  <img src="./screenshots/dashboard.png" width="700" alt="Dashboard overview"/>
+</p>
+
+<p align="center">
+  <img src="./screenshots/ats_detail.png" width="700" alt="ATS keyword gap detail"/>
+</p>
+
+<p align="center">
+  <img src="./screenshots/bullet_before_after.png" width="700" alt="Bullet point improvement"/>
 </p>
 ```
 
