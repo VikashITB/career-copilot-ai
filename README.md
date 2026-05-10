@@ -22,20 +22,19 @@
 
 ---
 
+## Screenshots
 
-```html
-<p align="center">
-  <img src="./screenshots/dashboard.png" width="700" alt="Dashboard overview"/>
-</p>
+### Dashboard Overview
 
-<p align="center">
-  <img src="./screenshots/ats_detail.png" width="700" alt="ATS keyword gap detail"/>
-</p>
+![Dashboard](screenshots/dashboard.png)
 
-<p align="center">
-  <img src="./screenshots/bullet_before_after.png" width="700" alt="Bullet point improvement"/>
-</p>
-```
+### ATS Analysis
+
+![ATS Analysis](screenshots/ats_detail.png)
+
+### Bullet Improvement
+
+![Bullet Improvement](screenshots/bullet_before_after.png)
 
 ---
 
