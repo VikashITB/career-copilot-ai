@@ -89,9 +89,10 @@ def render():
             result_placeholder.empty()
             for bullet in improved:
                 st.markdown(
-                    f"<div style='background:#f0fdf4;border-left:3px solid #16a34a;"
+                    f"<div style='background:linear-gradient(135deg, rgba(22, 163, 74, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                    f"border-left:3px solid #22c55e;"
                     f"padding:.6rem 1rem;border-radius:6px;margin-bottom:.5rem;"
-                    f"font-size:.9rem;color:#14532d;'>✅ {bullet}</div>",
+                    f"font-size:.9rem;color:#4ade80;'>✅ {bullet}</div>",
                     unsafe_allow_html=True,
                 )
 
@@ -104,16 +105,18 @@ def render():
             with b_col:
                 if i < len(original):
                     st.markdown(
-                        f"<div style='background:#fff1f2;border-left:3px solid #ef4444;"
-                        f"padding:.5rem .9rem;border-radius:6px;font-size:.85rem;color:#7f1d1d;'>"
+                        f"<div style='background:linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                        f"border-left:3px solid #ef4444;"
+                        f"padding:.5rem .9rem;border-radius:6px;font-size:.85rem;color:#f87171;'>"
                         f"❌ {original[i]}</div>",
                         unsafe_allow_html=True,
                     )
             with a_col:
                 if i < len(improved):
                     st.markdown(
-                        f"<div style='background:#f0fdf4;border-left:3px solid #16a34a;"
-                        f"padding:.5rem .9rem;border-radius:6px;font-size:.85rem;color:#14532d;'>"
+                        f"<div style='background:linear-gradient(135deg, rgba(22, 163, 74, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                        f"border-left:3px solid #22c55e;"
+                        f"padding:.5rem .9rem;border-radius:6px;font-size:.85rem;color:#4ade80;'>"
                         f"✅ {improved[i]}</div>",
                         unsafe_allow_html=True,
                     )

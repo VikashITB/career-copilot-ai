@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 from src.resume_parser import parse_resume
 from src.ats_scorer import score_resume
 from src.rag_chain import ats_analysis_chain
-from src.utils import score_color, score_label, load_job_files, truncate
+from src.utils import score_color, score_label, load_job_files, truncate, wrap_ai_output
 
 
 def _gauge(score: int) -> go.Figure:
@@ -140,8 +140,8 @@ def render():
             st.markdown("#### ✅ Matched Keywords")
             if result.matched_keywords:
                 tags = " ".join(
-                    f"<span style='background:#dcfce7;color:#16a34a;padding:2px 10px;"
-                    f"border-radius:99px;font-size:.8rem;margin:2px;display:inline-block;'>{kw}</span>"
+                    f"<span style='background:rgba(22, 163, 74, 0.2);color:#4ade80;padding:2px 10px;"
+                    f"border:1px solid #22c55e;border-radius:99px;font-size:.8rem;margin:2px;display:inline-block;'>{kw}</span>"
                     for kw in result.matched_keywords[:20]
                 )
                 st.markdown(tags, unsafe_allow_html=True)
@@ -152,8 +152,8 @@ def render():
             st.markdown("#### ❌ Missing Keywords")
             if result.missing_keywords:
                 tags = " ".join(
-                    f"<span style='background:#fee2e2;color:#dc2626;padding:2px 10px;"
-                    f"border-radius:99px;font-size:.8rem;margin:2px;display:inline-block;'>{kw}</span>"
+                    f"<span style='background:rgba(220, 38, 38, 0.2);color:#f87171;padding:2px 10px;"
+                    f"border:1px solid #ef4444;border-radius:99px;font-size:.8rem;margin:2px;display:inline-block;'>{kw}</span>"
                     for kw in result.missing_keywords
                 )
                 st.markdown(tags, unsafe_allow_html=True)
@@ -163,7 +163,13 @@ def render():
         # ── Feedback ───────────────────────────────────────────────────────────
         st.markdown("#### 💡 Improvement Suggestions")
         for tip in result.feedback:
-            st.markdown(f"<div class='info-box'>{tip}</div>", unsafe_allow_html=True)
+            st.markdown(
+                f"<div style='background:linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                f"border-radius:10px;padding:1rem 1.2rem;"
+                f"border-left:4px solid #6366f1;margin:0.8rem 0;"
+                f"font-size:0.93rem;color:#e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.2);'>{tip}</div>",
+                unsafe_allow_html=True,
+            )
 
         # ── AI narrative analysis ───────────────────────────────────────────────
         st.markdown("#### 🤖 AI Recruiter Analysis")
@@ -179,7 +185,7 @@ def render():
                     }
                 )
                 st.markdown(
-                    f"<div class='info-box'>{narrative}</div>",
+                    wrap_ai_output(narrative, "🤖 AI Recruiter Analysis"),
                     unsafe_allow_html=True,
                 )
             except Exception as exc:

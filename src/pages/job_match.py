@@ -7,7 +7,7 @@ import plotly.express as px
 from src.resume_parser import parse_resume
 from src.job_matcher import match_jobs, add_custom_job
 from src.embeddings import build_index, index_exists
-from src.utils import load_job_files, score_color
+from src.utils import load_job_files, score_color, wrap_ai_output
 
 
 def _build_if_needed():
@@ -129,7 +129,7 @@ def render():
                     if match.explanation:
                         st.markdown("**🤖 AI Explanation:**")
                         st.markdown(
-                            f"<div class='info-box'>{match.explanation}</div>",
+                            wrap_ai_output(match.explanation, "🤖 AI Job Match Explanation"),
                             unsafe_allow_html=True,
                         )
 

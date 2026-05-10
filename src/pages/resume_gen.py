@@ -86,10 +86,11 @@ def render():
 
         # Preview box
         st.markdown(
-            f"<div style='background:white;border-radius:12px;padding:1.5rem;"
-            f"box-shadow:0 1px 6px rgba(0,0,0,.08);white-space:pre-wrap;"
-            f"font-family:monospace;font-size:.85rem;color:#1e293b;"
-            f"border:1px solid #e2e8f0;max-height:500px;overflow-y:auto;'>"
+            f"<div style='background:linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);"
+            f"border-radius:12px;padding:1.5rem;"
+            f"box-shadow:0 4px 12px rgba(0,0,0,0.3);white-space:pre-wrap;"
+            f"font-family:monospace;font-size:.85rem;color:#e2e8f0;"
+            f"border:1px solid #334155;max-height:500px;overflow-y:auto;'>"
             f"{resume_text}</div>",
             unsafe_allow_html=True,
         )

@@ -5,7 +5,7 @@ pages/career_page.py – AI career advisor and roadmap generator page.
 import streamlit as st
 import plotly.graph_objects as go
 from src.career_advisor import get_career_roadmap, parse_roadmap_weeks
-from src.utils import truncate_output
+from src.utils import truncate_output, wrap_ai_output
 
 
 def _roadmap_chart(weeks: list[dict]) -> go.Figure:
@@ -124,18 +124,20 @@ def render():
             if first_line.isupper() or re.match(r"^\d+\.", first_line):
                 rest = "\n".join(section.strip().splitlines()[1:])
                 st.markdown(
-                    f"<div style='background:#f8fafc;border-radius:10px;padding:1rem 1.2rem;"
-                    f"margin-bottom:.8rem;border:1px solid #e2e8f0;'>"
-                    f"<p style='font-weight:700;color:#4f46e5;margin:0 0 6px;'>{first_line}</p>"
-                    f"<p style='color:#334155;font-size:.88rem;margin:0;white-space:pre-wrap;'>{rest}</p>"
+                    f"<div style='background:linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                    f"border-radius:10px;padding:1rem 1.2rem;"
+                    f"margin-bottom:.8rem;border:1px solid #334155;border-left:4px solid #06b6d4;'>"
+                    f"<p style='font-weight:700;color:#06b6d4;margin:0 0 6px;'>{first_line}</p>"
+                    f"<p style='color:#e2e8f0;font-size:.88rem;margin:0;white-space:pre-wrap;'>{rest}</p>"
                     f"</div>",
                     unsafe_allow_html=True,
                 )
             else:
                 st.markdown(
-                    f"<div style='background:white;border-radius:10px;padding:1rem 1.2rem;"
-                    f"margin-bottom:.8rem;box-shadow:0 1px 3px rgba(0,0,0,.06);'>"
-                    f"<p style='color:#1e293b;font-size:.88rem;margin:0;white-space:pre-wrap;'>{section.strip()}</p>"
+                    f"<div style='background:linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);"
+                    f"border-radius:10px;padding:1rem 1.2rem;"
+                    f"margin-bottom:.8rem;border:1px solid #334155;box-shadow:0 2px 8px rgba(0,0,0,0.2);'>"
+                    f"<p style='color:#e2e8f0;font-size:.88rem;margin:0;white-space:pre-wrap;'>{section.strip()}</p>"
                     f"</div>",
                     unsafe_allow_html=True,
                 )

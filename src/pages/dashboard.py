@@ -54,13 +54,13 @@ def render():
             st.markdown(
                 f"""
                 <div style='display:flex;gap:1rem;align-items:flex-start;margin-bottom:1rem;'>
-                    <div style='background:#6366f1;color:white;border-radius:50%;
+                    <div style='background:linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);color:white;border-radius:50%;
                                 width:32px;height:32px;min-width:32px;display:flex;
                                 align-items:center;justify-content:center;
-                                font-weight:700;font-size:.9rem;'>{num}</div>
+                                font-weight:700;font-size:.9rem;box-shadow:0 2px 8px rgba(99,102,241,0.3);'>{num}</div>
                     <div>
-                        <p style='margin:0;font-weight:600;color:#0f172a;'>{title}</p>
-                        <p style='margin:2px 0 0;color:#64748b;font-size:.88rem;'>{desc}</p>
+                        <p style='margin:0;font-weight:600;color:#f1f5f9;'>{title}</p>
+                        <p style='margin:2px 0 0;color:#94a3b8;font-size:.88rem;'>{desc}</p>
                     </div>
                 </div>
                 """,
@@ -103,11 +103,13 @@ def render():
     for col, (icon, title, desc) in zip(cols, tools):
         col.markdown(
             f"""
-            <div style='background:white;border-radius:12px;padding:1.1rem;
-                        box-shadow:0 1px 4px rgba(0,0,0,.08);text-align:center;height:160px;'>
+            <div style='background:linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+                        border-radius:12px;padding:1.1rem;
+                        box-shadow:0 4px 12px rgba(0,0,0,0.3);text-align:center;height:160px;
+                        border:1px solid #334155;'>
                 <div style='font-size:2rem;'>{icon}</div>
-                <p style='font-weight:700;color:#0f172a;margin:6px 0 4px;font-size:.9rem;'>{title}</p>
-                <p style='color:#64748b;font-size:.78rem;margin:0;'>{desc}</p>
+                <p style='font-weight:700;color:#f1f5f9;margin:6px 0 4px;font-size:.9rem;'>{title}</p>
+                <p style='color:#94a3b8;font-size:.78rem;margin:0;'>{desc}</p>
             </div>
             """,
             unsafe_allow_html=True,
