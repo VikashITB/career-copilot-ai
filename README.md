@@ -23,13 +23,6 @@
 ---
 
 
-| View | What to capture |
-|---|---|
-| `dashboard.png` | Score card row (ATS score gauge, section completeness bar, top-3 job matches) |
-| `ats_detail.png` | Missing keywords list + section-level sub-scores |
-| `bullet_before_after.png` | Side-by-side bullet rewrite table (2–3 examples) |
-| `career_roadmap.png` | 6-week learning plan output with skill gap breakdown |
-
 ```html
 <p align="center">
   <img src="./screenshots/dashboard.png" width="700" alt="Dashboard overview"/>
