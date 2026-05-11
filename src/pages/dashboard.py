@@ -76,7 +76,7 @@ def render():
                 marker_color=["#818cf8", "#6366f1", "#4f46e5", "#4338ca"],
                 text=[55, 68, 74, 71],
                 textposition="outside",
-                textfont=dict(color="#f1f5f9", size=12, family="Inter", weight="600"),
+                textfont=dict(color="#f1f5f9", size=12, family="Inter", weight="bold"),
             )
         )
         fig.update_layout(
@@ -166,7 +166,7 @@ def render():
             angularaxis=dict(
                 gridcolor="#475569",
                 tickcolor="#64748b",
-                tickfont=dict(color="#f1f5f9", size=12, family="Inter", weight="600"),
+                tickfont=dict(color="#f1f5f9", size=12, family="Inter", weight="bold"),
             ),
         ),
         showlegend=True,
