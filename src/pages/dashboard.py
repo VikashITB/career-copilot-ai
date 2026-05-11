@@ -76,15 +76,28 @@ def render():
                 marker_color=["#818cf8", "#6366f1", "#4f46e5", "#4338ca"],
                 text=[55, 68, 74, 71],
                 textposition="outside",
+                textfont=dict(color="#f1f5f9", size=12, family="Inter", weight="600"),
             )
         )
         fig.update_layout(
             margin=dict(l=0, r=0, t=20, b=0),
             height=250,
-            yaxis=dict(range=[0, 100], title="Avg ATS Score"),
-            plot_bgcolor="white",
-            paper_bgcolor="white",
-            font_family="Inter",
+            yaxis=dict(
+                range=[0, 100],
+                title="Avg ATS Score",
+                title_font=dict(color="#f1f5f9", size=12),
+                tickfont=dict(color="#94a3b8", size=11),
+                gridcolor="#475569",
+                zerolinecolor="#334155",
+            ),
+            xaxis=dict(
+                tickfont=dict(color="#e2e8f0", size=11),
+                gridcolor="#475569",
+                zerolinecolor="#334155",
+            ),
+            plot_bgcolor="rgba(15, 23, 42, 0.5)",
+            paper_bgcolor="rgba(15, 23, 42, 0.5)",
+            font=dict(color="#e2e8f0", family="Inter", size=12),
         )
         st.plotly_chart(fig, use_container_width=True)
 
@@ -142,12 +155,36 @@ def render():
         )
     )
     fig2.update_layout(
-        polar=dict(radialaxis=dict(visible=True, range=[0, 100])),
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 100],
+                gridcolor="#475569",
+                tickcolor="#64748b",
+                tickfont=dict(color="#94a3b8", size=11),
+            ),
+            angularaxis=dict(
+                gridcolor="#475569",
+                tickcolor="#64748b",
+                tickfont=dict(color="#f1f5f9", size=12, family="Inter", weight="600"),
+            ),
+        ),
         showlegend=True,
         height=350,
         margin=dict(l=20, r=20, t=20, b=20),
-        paper_bgcolor="white",
-        font_family="Inter",
+        paper_bgcolor="rgba(15, 23, 42, 0.5)",
+        plot_bgcolor="rgba(15, 23, 42, 0.5)",
+        font=dict(
+            color="#e2e8f0",
+            family="Inter",
+            size=12,
+        ),
+        legend=dict(
+            font=dict(color="#e2e8f0", size=12, family="Inter"),
+            bgcolor="rgba(15, 23, 42, 0.8)",
+            bordercolor="#334155",
+            borderwidth=1,
+        ),
     )
     st.plotly_chart(fig2, use_container_width=True)
     st.caption("🔍 Upload your resume in **Resume Analysis** to see your personalised radar chart.")
