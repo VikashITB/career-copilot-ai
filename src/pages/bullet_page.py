@@ -25,6 +25,24 @@ EXAMPLES = {
         "- Helped improve user experience\n"
         "- Wrote product requirements"
     ),
+    "AI Engineer": (
+        "- Built AI models\n"
+        "- Worked with LLMs\n"
+        "- Optimized inference\n"
+        "- Deployed ML systems"
+    ),
+    "DevOps Engineer": (
+        "- Managed cloud infrastructure\n"
+        "- Set up CI/CD pipelines\n"
+        "- Monitored systems\n"
+        "- Automated deployments"
+    ),
+    "ML Engineer": (
+        "- Trained machine learning models\n"
+        "- Built data pipelines\n"
+        "- Optimized model performance\n"
+        "- Deployed models to production"
+    ),
 }
 
 
@@ -41,15 +59,49 @@ def render():
 
     with col_in:
         st.subheader("📝 Input")
-        role = st.selectbox("Target Role", list(EXAMPLES.keys()), key="bullet_role")
         
-        if st.button("Load Example", key="load_example"):
-            st.session_state["bullet_input"] = EXAMPLES[role]
-            st.rerun()
+        # Predefined example role dropdown
+        st.markdown(
+            "<p style='color:#94a3b8;font-size:0.85rem;margin-bottom:0.5rem;'>"
+            "📋 Choose an example role (for demo templates)</p>",
+            unsafe_allow_html=True,
+        )
+        example_role = st.selectbox("Example Role", list(EXAMPLES.keys()), key="bullet_example_role")
+        
+        # Custom role input
+        st.markdown(
+            "<p style='color:#94a3b8;font-size:0.85rem;margin:0.5rem 0;'>"
+            "✏️ Or enter a custom target role</p>",
+            unsafe_allow_html=True,
+        )
+        custom_role = st.text_input(
+            "Custom Target Role",
+            placeholder="e.g. AI Engineer, DevOps Engineer, ML Engineer, Cybersecurity Analyst",
+            key="bullet_custom_role",
+        )
+        
+        # Determine which role to use (custom overrides example)
+        role = custom_role.strip() if custom_role.strip() else example_role
+        
+        # Show which role is being used
+        if custom_role.strip():
+            st.markdown(
+                f"<div style='background:rgba(6, 182, 212, 0.1);border:1px solid #06b6d4;"
+                f"border-radius:6px;padding:0.5rem 0.8rem;margin:0.5rem 0;'>"
+                f"<p style='margin:0;color:#06b6d4;font-size:0.8rem;font-weight:600;'>"
+                f"Using custom role: {role}</p></div>",
+                unsafe_allow_html=True,
+            )
+        
+        # Load example button (only works for predefined roles)
+        if not custom_role.strip():
+            if st.button("Load Example", key="load_example"):
+                st.session_state["bullet_input"] = EXAMPLES[example_role]
+                st.rerun()
 
         bullets_input = st.text_area(
             "Your weak bullet points",
-            height=250,
+            height=200,
             placeholder="Enter your bullet points, one per line…",
             value=st.session_state.get("bullet_input", ""),
             key="bullet_input",
@@ -67,6 +119,10 @@ def render():
         if not raw:
             st.error("Please enter at least one bullet point.")
             return
+        
+        if not role:
+            st.error("Please either select an example role or enter a custom target role.")
+            return
 
         with st.spinner("Transforming your bullets with AI…"):
             try:
@@ -75,6 +131,7 @@ def render():
                 improved_list = parse_bullets(improved_text)
                 st.session_state["improved_bullets"] = improved_list
                 st.session_state["original_bullets"] = parse_bullets(raw)
+                st.session_state["used_role"] = role  # Store the role for reference
             except RuntimeError as exc:
                 st.error(str(exc))
                 return
@@ -83,6 +140,17 @@ def render():
     if "improved_bullets" in st.session_state:
         improved = st.session_state["improved_bullets"]
         original = st.session_state.get("original_bullets", [])
+        used_role = st.session_state.get("used_role", "Unknown Role")
+        
+        # Show which role was used for improvement
+        st.markdown(
+            f"<div style='background:linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);"
+            f"border-radius:10px;padding:1rem 1.2rem;border:1px solid #06b6d4;border-left:4px solid #06b6d4;"
+            f"margin:1rem 0;box-shadow:0 2px 8px rgba(0,0,0,0.2);'>"
+            f"<p style='margin:0;color:#06b6d4;font-weight:700;font-size:0.9rem;'>"
+            f"🎯 Target Role: {used_role}</p></div>",
+            unsafe_allow_html=True,
+        )
 
         # Fill the right-column placeholder
         with col_out:
@@ -123,10 +191,18 @@ def render():
 
         # ── Copy/download ─────────────────────────────────────────────────────
         st.markdown("<br>", unsafe_allow_html=True)
-        st.download_button(
-            label="⬇️  Download Improved Bullets (.txt)",
-            data="\n".join(f"• {b}" for b in improved).encode("utf-8"),
-            file_name="improved_bullets.txt",
-            mime="text/plain",
-            use_container_width=True,
-        )
+        dl_col, clear_col = st.columns([2, 1])
+        with dl_col:
+            st.download_button(
+                label="⬇️  Download Improved Bullets (.txt)",
+                data="\n".join(f"• {b}" for b in improved).encode("utf-8"),
+                file_name="improved_bullets.txt",
+                mime="text/plain",
+                use_container_width=True,
+            )
+        with clear_col:
+            if st.button("🗑 Clear", use_container_width=True):
+                for key in ["improved_bullets", "original_bullets", "used_role", "bullet_input"]:
+                    if key in st.session_state:
+                        del st.session_state[key]
+                st.rerun()
