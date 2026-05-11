@@ -4,6 +4,7 @@ import os
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from src.utils import get_env
+from src.config import MODEL_NAME
 
 
 def get_llm(temperature: float = 0.3):
@@ -14,7 +15,7 @@ def get_llm(temperature: float = 0.3):
 
     if provider == "groq" and groq_key:
         from langchain_groq import ChatGroq
-        model = get_env("GROQ_MODEL", "llama-3.3-70b-versatile")
+        model = get_env("GROQ_MODEL", MODEL_NAME)
         return ChatGroq(
             groq_api_key=groq_key,
             model_name=model,
